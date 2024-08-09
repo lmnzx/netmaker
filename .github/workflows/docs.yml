@@ -31,17 +31,16 @@ jobs:
           export PATH=$PATH:$(go env GOPATH)/bin
           swag i --md docs/ --parseDependency  --parseInternal --outputTypes yaml  --parseDepth 1 --output .
 
-      - name: Put current date into a variable
-        run: |
-          echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')"
-          echo "NOW=$NOW" >> $env:GITHUB_ENV
+      - name: Get current timestamp
+        id: timestamp
+        run: echo "timestamp=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_OUTPUT
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Update documentation ${{ env.NOW }}"
-          title: "Update Swagger documentation ${{ env.NOW }}"
+          commit-message: "Update documentation ${{ steps.timestamp.outputs.timestamp }}"
+          title: "Update Swagger documentation ${{ steps.timestamp.outputs.timestamp }}"
           body: |
             This PR updates the swagger.yml file with the latest documentation changes.
             
