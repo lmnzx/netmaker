@@ -33,7 +33,7 @@ jobs:
 
       - name: Put current date into a variable
         run: |
-          $NOW=& Get-Date -format yyyy-MM-dd
+          echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')"
           echo "NOW=$NOW" >> $env:GITHUB_ENV
 
       - name: Create Pull Request
