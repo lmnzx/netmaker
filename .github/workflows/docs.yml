@@ -44,7 +44,7 @@ jobs:
           body: |
             This PR updates the swagger.yml file with the latest documentation changes.
             
-            Updated on: ${{ env.CURRENT_DATE }}
+            Updated on: ${{ steps.timestamp.outputs.timestamp  }}
           branch: update-swagger-docs-${{ github.event.inputs.branch || 'master' }}
           base: ${{ github.event.inputs.branch || 'master' }}
           delete-branch: true
